@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: legacymart
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PAYFAST_MODE
+        value: sandbox
+      - key: PRODUCT_PRICE
+        value: "199.00"
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: BASE_URL
+        sync: false
+      - key: PAYFAST_MERCHANT_ID
+        sync: false
+      - key: PAYFAST_MERCHANT_KEY
+        sync: false
+      - key: PAYFAST_PASSPHRASE
+        sync: false
