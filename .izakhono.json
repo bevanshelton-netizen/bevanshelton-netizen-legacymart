@@ -1,0 +1,13 @@
+{
+  "name": "LegacyMart",
+  "slug": "legacymart",
+  "build_context": ".",
+  "dockerfile_path": "Dockerfile",
+  "container_port": 3000,
+  "health_path": "/health",
+  "alpha": {
+    "preflight": true,
+    "rehearsal": false,
+    "windows_package": false
+  }
+}
