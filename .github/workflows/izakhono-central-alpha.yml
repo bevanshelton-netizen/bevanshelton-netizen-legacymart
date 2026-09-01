@@ -26,4 +26,5 @@ permissions:
 
 jobs:
   alpha-core:
+    # Pin the reviewed Builder-owned policy; do not follow a moving branch.
     uses: bevanshelton-netizen/izakhono-builder/.github/workflows/izakhono-build-to-alpha.yml@efbb9fc15f95d9123a12079bf11f9d8a22769edc
