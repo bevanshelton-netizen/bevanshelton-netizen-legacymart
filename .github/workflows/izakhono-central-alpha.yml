@@ -11,6 +11,15 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - '.github/workflows/izakhono-central-alpha.yml'
+  push:
+    branches: [main]
+    paths:
+      - '.izakhono.json'
+      - 'Dockerfile'
+      - 'server.js'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/izakhono-central-alpha.yml'
 
 permissions:
   contents: read
