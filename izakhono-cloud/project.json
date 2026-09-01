@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "project": "legacymart",
+  "runtime": "container",
+  "dockerfile": "Dockerfile",
+  "containerPort": 3000,
+  "healthPath": "/health",
+  "strategy": "blue-green",
+  "cutover": "manual-after-healthcheck",
+  "persistentStorageRequired": true,
+  "persistentPaths": ["/app/data", "/app/public/downloads"],
+  "secretsRequired": ["BASE_URL", "PAYFAST_MODE", "PAYFAST_MERCHANT_ID", "PAYFAST_MERCHANT_KEY", "PAYFAST_PASSPHRASE", "ADMIN_TOKEN"],
+  "notes": "Do not cut over until IZAKHONO CLOUD persistent volumes and secret injection are enabled. Existing host remains untouched."
+}
