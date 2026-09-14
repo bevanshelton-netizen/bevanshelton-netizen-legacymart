@@ -1,0 +1,53 @@
+name: LegacyMart Private Pilot Safety
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'server.js'
+      - '.env.example'
+      - '.github/workflows/legacy-private-pilot-safety.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'server.js'
+      - '.env.example'
+      - '.github/workflows/legacy-private-pilot-safety.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  safety:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install production dependencies
+        run: npm install --omit=dev --ignore-scripts --no-audit --no-fund
+
+      - name: Prove private-pilot checkout is fail closed
+        env:
+          PORT: '3300'
+          BASE_URL: http://127.0.0.1:3300
+          PAYFAST_MODE: sandbox
+          CHECKOUT_ENABLED: 'false'
+          ADMIN_TOKEN: test-only-admin-token-which-is-long-enough
+        run: |
+          node server.js > /tmp/legacymart.log 2>&1 &
+          pid=$!
+          trap 'kill $pid 2>/dev/null || true' EXIT
+          for i in $(seq 1 30); do
+            curl -fsS http://127.0.0.1:3300/health >/tmp/health.json && break
+            sleep 1
+          done
+          grep -q '"ok":true' /tmp/health.json
+          grep -q '"checkout_enabled":false' /tmp/health.json
+          code=$(curl -sS -o /tmp/payment.txt -w '%{http_code}' -X POST             -H 'content-type: application/x-www-form-urlencoded'             --data 'name_first=Test&name_last=User&email_address=test@example.com'             http://127.0.0.1:3300/payfast/start)
+          test "$code" = "503"
+          grep -q 'Checkout disabled in private pilot' /tmp/payment.txt
+          curl -fsS http://127.0.0.1:3300/checkout | grep -q 'Private pilot checkout is disabled'
