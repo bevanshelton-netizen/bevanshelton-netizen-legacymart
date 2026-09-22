@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'server.js'
+      - 'marketplace-pay.js'
+      - 'public/share-widget.js'
       - '.env.example'
       - '.github/workflows/legacy-private-pilot-safety.yml'
   push:
@@ -37,6 +39,7 @@ jobs:
           PAYFAST_MODE: sandbox
           CHECKOUT_ENABLED: 'false'
           ADMIN_TOKEN: test-only-admin-token-which-is-long-enough
+          REFERENCE_CHECKOUT_ENABLED: 'false'
         run: |
           node server.js > /tmp/legacymart.log 2>&1 &
           pid=$!
@@ -51,3 +54,10 @@ jobs:
           test "$code" = "503"
           grep -q 'Checkout disabled in private pilot' /tmp/payment.txt
           curl -fsS http://127.0.0.1:3300/checkout | grep -q 'Private pilot checkout is disabled'
+          curl -fsS 'http://127.0.0.1:3300/checkout?sku=BS-HOODIE-001' | grep -q 'Reference checkout staged'
+          ref_code=$(curl -sS -o /tmp/reference-payment.txt -w '%{http_code}' -X POST \
+            -H 'content-type: application/x-www-form-urlencoded' \
+            --data 'sku=BS-HOODIE-001&customer_name=Test+Buyer&customer_email=test%40example.com' \
+            http://127.0.0.1:3300/marketplace/pay)
+          test "$ref_code" = "503"
+          grep -q 'Reference checkout is not enabled' /tmp/reference-payment.txt

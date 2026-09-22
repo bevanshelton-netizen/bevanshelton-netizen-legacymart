@@ -1,69 +1,54 @@
-# LegacyMart Platform
+# LegacyMart Makers
 
-LegacyMart is a purpose-driven marketplace MVP for ebooks, printed books, clothing, courses, digital products, vendor applications and future multi-vendor selling.
+LegacyMart Makers is the Izakhono-owned multi-seller marketplace foundation: an African-born marketplace for handmade, creative, personalised, digital and independent products.
 
-## What is included
+## Marketplace foundation
 
-- Node.js web server using only built-in Node modules
-- Premium LegacyMart home page
-- Shop page
-- Faith Personified ebook page
-- Checkout page
-- PayFast checkout handoff form
-- PayFast ITN endpoint
-- Order tracking
-- Protected ebook download route
-- Vendor application form
-- Admin dashboard with CSV exports
-- Policy pages
-- Render deployment configuration
-- Go-live documentation
+- Maker-focused home page and category discovery
+- Search and category filtering
+- Product detail pages
+- Buyer favourites
+- Founding seller application flow
+- Existing vendor review/admin flow preserved
+- Configurable commercial model
+- Existing payment handoff preserved for payment-enabled listings
+- Automatic third-party payouts remain blocked until verified
+- IZAKHONO-owned deployment metadata remains supported
+- Production marketplace data model is active in IZAKHONO WebStart with RLS
 
-## Start locally
-
-```bash
-cp .env.example .env
-npm start
-```
-
-Open:
+## Launch economics defaults
 
 ```text
-http://localhost:3000
+LISTING_FEE=0
+MARKETPLACE_FEE_PERCENT=8
+PAYOUT_HOLD_DAYS=7
 ```
 
-## Admin dashboard
+These settings are configurable. The 8% commission is a launch target, not a hard-coded permanent commercial commitment.
 
-```text
-/admin?token=change-this-long-secret
-```
+## Production data model
 
-Change `ADMIN_TOKEN` in `.env` before going live.
+The marketplace core now has dedicated tables for:
 
-## PayFast
+- shops
+- listings
+- favourites
+- orders
+- order items
+- reviews
+- payouts
+- platform configuration
 
-The platform supports sandbox and live PayFast handoff.
+Seller moderation and payout status are server-controlled. Client-facing database access uses row-level security.
 
-Required environment variables:
+## Payment boundary
 
-```text
-PAYFAST_MODE=sandbox
-PAYFAST_MERCHANT_ID=your_merchant_id
-PAYFAST_MERCHANT_KEY=your_merchant_key
-PAYFAST_PASSPHRASE=your_passphrase_if_enabled
-BASE_URL=https://your-live-domain.co.za
-```
+The marketplace records the intended marketplace commission and seller amount separately, but it must not automatically remit third-party seller funds until the selected gateway, KYC/KYB, refunds, disputes, settlement and accounting model are verified end to end.
 
-## Ebook upload
+## Existing LegacyMart checkout
 
-Place the final PDF here:
+The current repository still contains the original Faith Personified checkout and PayFast handoff. The maker marketplace UI deliberately labels non-live catalogue items as demo listings so they cannot be mistaken for products available for purchase.
 
-```text
-public/downloads/faith-personified-my-journey.pdf
-```
+## Next production layer
 
-The download route only unlocks when an order status is `paid`.
-
-## Important production note
-
-Before public launch, PayFast ITN validation must be completed according to PayFast's official developer requirements. This MVP records ITN notifications and unlocks payment when `payment_status=COMPLETE`. For a full production marketplace, add server-to-server ITN validation, email sending, database hosting and vendor payout workflows.
+Connect marketplace pages to the production database/auth layer, add seller image storage, shipping options, seller storefront URLs, moderation tooling, messaging, tax/VAT handling and verified payout orchestration.
