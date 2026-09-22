@@ -13,6 +13,18 @@
   const categories = [
     ['Fashion & Accessories','👜'],['Jewellery','💎'],['Home & Living','🏺'],['Art & Digital','🎨'],['Books & Digital','📚'],['Personalised Gifts','🎁'],['Baby & Kids','🧶'],['Weddings & Events','💍']
   ];
+  const bevanLookbook = [
+    {code:'LOOK-01',title:'Gold-Trim Tailoring',category:'Tailored Luxury',status:'Price to be confirmed',tone:'gold',desc:'Sharp black-and-gold formal styling for the signature tailored line.'},
+    {code:'LOOK-02',title:'Signature Graphic Tee',category:'Street Luxury',status:'Price to be confirmed',tone:'light',desc:'A clean branded tee direction for accessible premium streetwear.'},
+    {code:'LOOK-03',title:'Black & Gold Bomber',category:'Outerwear',status:'Price to be confirmed',tone:'gold',desc:'Premium bomber-style outerwear carrying the black-and-gold identity.'},
+    {code:'LOOK-04',title:'Signature Jacket',category:'Outerwear',status:'Price to be confirmed',tone:'dark',desc:'Distinctive lifestyle jacket styling for a premium casual collection.'},
+    {code:'LOOK-05',title:'Premium Shirt',category:'Shirts',status:'Price to be confirmed',tone:'light',desc:'Refined shirt styling for smart-casual, occasion and branded wear.'},
+    {code:'LOOK-06',title:'Monochrome Street Tee',category:'Street Luxury',status:'Price to be confirmed',tone:'mono',desc:'Bold monochrome streetwear with unmistakable BEVAN SHELTON™ identity.'},
+    {code:'LOOK-07',title:'Signature Tracksuit Look',category:'Athleisure',status:'From R680 for current tracksuit base',tone:'sport',desc:'A top-to-bottom athleisure reference look for the signature tracksuit line.'},
+    {code:'LOOK-08',title:'Performance Luxury Top',category:'Sports Luxury',status:'Price to be confirmed',tone:'sport',desc:'Athletic energy combined with premium branded fashion detailing.'},
+    {code:'LOOK-09',title:'Statement Outerwear',category:'Outerwear',status:'Price to be confirmed',tone:'dark',desc:'High-impact outerwear intended to anchor seasonal collections.'},
+    {code:'LOOK-10',title:'Black & Gold Showcase',category:'Signature Collection',status:'Price to be confirmed',tone:'gold',desc:'Flagship black-and-gold styling that defines the premium collection language.'}
+  ];
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const money = value => `R${Number(value).toFixed(2)}`;
   const query = new URLSearchParams(location.search);
@@ -28,6 +40,7 @@
 
   const categoryTiles = () => categories.map(([name, icon]) => `<a class="category-tile" href="/shop?category=${encodeURIComponent(name)}"><span>${icon}</span><b>${esc(name)}</b></a>`).join('');
   const productCard = p => `<article class="product-card"><div class="product-visual"><span>${p.icon}</span><button class="heart" data-favourite="${esc(p.sku)}" aria-label="Save ${esc(p.title)}">♡</button></div><div class="product-body"><p class="pill">${p.reference ? 'Reference trial' : (p.live ? 'Live listing' : 'Demo listing')}</p><h3>${esc(p.title)}</h3><p class="seller">by ${esc(p.seller)}</p><p>${esc(p.desc)}</p><div class="product-bottom"><strong>${money(p.price)}</strong><a class="text-link" href="/shop?product=${encodeURIComponent(p.sku)}">View →</a></div></div></article>`;
+  const lookbookCard = look => `<article class="lookbook-card"><div class="lookbook-visual tone-${esc(look.tone)}" data-photo-ref="${esc(look.code)}"><span class="look-number">${esc(look.code.replace('LOOK-',''))}</span><span class="look-mark">BS</span><small>Reference photo supplied</small></div><div class="product-body"><p class="pill">Reference look</p><h3>${esc(look.title)}</h3><p class="seller">${esc(look.category)}</p><p>${esc(look.desc)}</p><div class="lookbook-status">${esc(look.status)}</div></div></article>`;
 
   function renderHome(){
     const referenceProducts = products.filter(p => p.reference).slice(0,4);
@@ -43,7 +56,7 @@
     const sellerSlug = query.get('seller');
     if (sellerSlug === 'bevan-shelton') {
       const sellerProducts = products.filter(p => p.sellerSlug === 'bevan-shelton');
-      main.innerHTML = `<section class="shop-head"><p class="eyebrow">Official owner-operated reference shop</p><h1>BEVAN SHELTON™</h1><p class="lead">Seller: BEVAN SHELTON™ · Operator: Bevan Shelton · South Africa. This is LegacyMart Makers’ controlled trial storefront and reference implementation for future sellers.</p><div class="trust-strip"><span>Reference shop</span><span>Trial mode</span><span>Owner operated</span><span>Reference checkout staged</span></div></section><section class="section-tight"><div class="product-grid">${sellerProducts.map(productCard).join('')}</div></section><section class="seller-banner"><div><p class="eyebrow">What we are testing here</p><h2>One real seller journey before we scale.</h2><p>Catalogue publishing, brand storefronts, buyer discovery, order flow, fee calculation, fulfilment, returns, reviews and multichannel integration will be proven here first.</p></div><a class="btn light" href="/how-it-works?view=fees">View seller economics</a></section>`;
+      main.innerHTML = `<section class="shop-head"><p class="eyebrow">Official owner-operated reference shop</p><h1>BEVAN SHELTON™</h1><p class="lead">Seller: BEVAN SHELTON™ · Operator: Bevan Shelton · South Africa. This is LegacyMart Makers’ controlled trial storefront and reference implementation for future sellers.</p><div class="trust-strip"><span>Reference shop</span><span>Trial mode</span><span>Owner operated</span><span>Reference checkout staged</span></div><div class="actions"><a class="btn primary" href="#reference-products">Shop trial products</a><a class="btn ghost" href="#reference-lookbook">View fashion lookbook</a></div></section><section class="section-tight" id="reference-products"><div class="section-head"><div><p class="eyebrow">Priced trial catalogue</p><h2>Reference products</h2></div></div><div class="product-grid">${sellerProducts.map(productCard).join('')}</div></section><section class="section-tight" id="reference-lookbook"><div class="section-head"><div><p class="eyebrow">BEVAN SHELTON™ Reference Lookbook</p><h2>Distinctive fashion directions</h2><p class="muted">These ten looks are catalogued as showcase references. Commercial prices stay uncommitted until you approve them.</p></div></div><div class="lookbook-grid">${bevanLookbook.map(lookbookCard).join('')}</div></section><section class="seller-banner"><div><p class="eyebrow">What we are testing here</p><h2>One real seller journey before we scale.</h2><p>Catalogue publishing, brand storefronts, buyer discovery, order flow, fee calculation, fulfilment, returns, reviews and multichannel integration will be proven here first.</p></div><a class="btn light" href="/how-it-works?view=fees">View seller economics</a></section>`;
       return;
     }
 
