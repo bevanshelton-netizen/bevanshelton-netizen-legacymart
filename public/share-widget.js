@@ -2,13 +2,13 @@
   const FEE = 8;
   const products = [
     {sku:'LM-BOOK-001',title:'Faith Personified – My Journey',seller:'LegacyMart Originals',category:'Books & Digital',price:199,icon:'📚',live:true,desc:'A downloadable ebook about faith, survival, leadership, entrepreneurship, healing and purpose.'},
+    {sku:'BS-HOODIE-001',title:'BEVAN SHELTON™ Signature Hoodie',seller:'BEVAN SHELTON™',sellerSlug:'bevan-shelton',category:'Fashion & Accessories',price:550,icon:'🧥',live:false,reference:true,desc:'Premium branded hoodie by BEVAN SHELTON™. Made-to-order sizing and branding options available.'},
+    {sku:'BS-TRACK-001',title:'BEVAN SHELTON™ Signature Tracksuit',seller:'BEVAN SHELTON™',sellerSlug:'bevan-shelton',category:'Fashion & Accessories',price:680,icon:'👟',live:false,reference:true,desc:'Premium BEVAN SHELTON™ tracksuit for teams, lifestyle and branded collections.'},
+    {sku:'BS-GOLFER-001',title:'BEVAN SHELTON™ Branded Golfer',seller:'BEVAN SHELTON™',sellerSlug:'bevan-shelton',category:'Fashion & Accessories',price:250,icon:'👕',live:false,reference:true,desc:'Smart branded golfer for corporate, club and lifestyle wear. Custom branding and sizing available.'},
+    {sku:'BS-TEE-001',title:'BEVAN SHELTON™ Branded Tee',seller:'BEVAN SHELTON™',sellerSlug:'bevan-shelton',category:'Fashion & Accessories',price:190,icon:'👕',live:false,reference:true,desc:'BEVAN SHELTON™ branded T-shirt for custom, team and lifestyle orders.'},
     {sku:'LM-DEMO-002',title:'African Print Weekender',seller:'Founding Maker Demo',category:'Fashion & Accessories',price:690,icon:'👜',live:false,desc:'A showcase listing for handcrafted bags and travel accessories.'},
     {sku:'LM-DEMO-003',title:'Beaded Statement Set',seller:'Founding Maker Demo',category:'Jewellery',price:420,icon:'💎',live:false,desc:'A showcase listing for handmade beadwork and artisan jewellery.'},
-    {sku:'LM-DEMO-004',title:'Hand-thrown Ceramic Pair',seller:'Founding Maker Demo',category:'Home & Living',price:360,icon:'🏺',live:false,desc:'A showcase listing for ceramics, décor and handcrafted homeware.'},
-    {sku:'LM-DEMO-005',title:'Custom Celebration Jacket',seller:'Founding Maker Demo',category:'Personalised Gifts',price:850,icon:'🧥',live:false,desc:'A showcase listing for made-to-order and personalised gifts.'},
-    {sku:'LM-DEMO-006',title:'Botanical Wall Art Download',seller:'Founding Maker Demo',category:'Art & Digital',price:95,icon:'🎨',live:false,desc:'A showcase listing for downloadable art and creative digital goods.'},
-    {sku:'LM-DEMO-007',title:'Heritage Baby Blanket',seller:'Founding Maker Demo',category:'Baby & Kids',price:480,icon:'🧶',live:false,desc:'A showcase listing for sewn, knitted and crocheted children’s goods.'},
-    {sku:'LM-DEMO-008',title:'Wedding Keepsake Box',seller:'Founding Maker Demo',category:'Weddings & Events',price:540,icon:'🎁',live:false,desc:'A showcase listing for wedding, event and keepsake products.'}
+    {sku:'LM-DEMO-004',title:'Hand-thrown Ceramic Pair',seller:'Founding Maker Demo',category:'Home & Living',price:360,icon:'🏺',live:false,desc:'A showcase listing for ceramics, décor and handcrafted homeware.'}
   ];
   const categories = [
     ['Fashion & Accessories','👜'],['Jewellery','💎'],['Home & Living','🏺'],['Art & Digital','🎨'],['Books & Digital','📚'],['Personalised Gifts','🎁'],['Baby & Kids','🧶'],['Weddings & Events','💍']
@@ -24,13 +24,14 @@
   brand.querySelector('b').textContent = 'LegacyMart Makers';
   const small = brand.querySelector('small');
   if (small) small.textContent = 'Made by people. Powered by Izakhono.';
-  nav.innerHTML = '<a href="/shop">Shop</a><a href="/shop?view=categories">Categories</a><a href="/become-a-vendor">Sell</a><a href="/how-it-works?view=fees">Fees</a><a href="/how-it-works">How it works</a><a href="/about">About</a>';
+  nav.innerHTML = '<a href="/shop">Shop</a><a href="/shop?seller=bevan-shelton">Reference Shop</a><a href="/shop?view=categories">Categories</a><a href="/become-a-vendor">Sell</a><a href="/how-it-works?view=fees">Fees</a><a href="/about">About</a>';
 
   const categoryTiles = () => categories.map(([name, icon]) => `<a class="category-tile" href="/shop?category=${encodeURIComponent(name)}"><span>${icon}</span><b>${esc(name)}</b></a>`).join('');
-  const productCard = p => `<article class="product-card"><div class="product-visual"><span>${p.icon}</span><button class="heart" data-favourite="${esc(p.sku)}" aria-label="Save ${esc(p.title)}">♡</button></div><div class="product-body"><p class="pill">${p.live ? 'Live listing' : 'Demo listing'}</p><h3>${esc(p.title)}</h3><p class="seller">by ${esc(p.seller)}</p><p>${esc(p.desc)}</p><div class="product-bottom"><strong>${money(p.price)}</strong><a class="text-link" href="/shop?product=${encodeURIComponent(p.sku)}">View →</a></div></div></article>`;
+  const productCard = p => `<article class="product-card"><div class="product-visual"><span>${p.icon}</span><button class="heart" data-favourite="${esc(p.sku)}" aria-label="Save ${esc(p.title)}">♡</button></div><div class="product-body"><p class="pill">${p.reference ? 'Reference trial' : (p.live ? 'Live listing' : 'Demo listing')}</p><h3>${esc(p.title)}</h3><p class="seller">by ${esc(p.seller)}</p><p>${esc(p.desc)}</p><div class="product-bottom"><strong>${money(p.price)}</strong><a class="text-link" href="/shop?product=${encodeURIComponent(p.sku)}">View →</a></div></div></article>`;
 
   function renderHome(){
-    main.innerHTML = `<section class="hero"><div><p class="eyebrow">The Izakhono-owned maker marketplace</p><h1>Make it.<br>List it.<br>Sell it.</h1><p class="lead">LegacyMart Makers gives artisans, designers, authors, crafters and independent brands their own storefront experience, discovery tools and a trusted route to buyers — built in Africa for the world.</p><div class="actions"><a class="btn primary" href="/shop">Explore the marketplace</a><a class="btn ghost" href="/become-a-vendor">Open your shop</a></div><div class="trust-strip"><span>0 listing fee at launch</span><span>${FEE}% marketplace fee target</span><span>Independent seller brands</span><span>Digital + physical products</span></div></div><div class="hero-market"><div class="floating-card one">🧵 <b>Handmade</b></div><div class="floating-card two">🎨 <b>Creative</b></div><div class="floating-card three">🌍 <b>Global</b></div><div class="maker-orbit"><span>LM</span></div><p>One marketplace. Thousands of independent makers.</p></div></section><section class="section-tight"><div class="section-head"><div><p class="eyebrow">Shop by category</p><h2>Find something made with meaning</h2></div><a class="text-link" href="/shop?view=categories">See all categories →</a></div><div class="category-grid">${categoryTiles()}</div></section><section class="section-tight"><div class="section-head"><div><p class="eyebrow">Marketplace preview</p><h2>Featured listings</h2><p class="muted">Demo listings show the marketplace experience while founding sellers are onboarded. Only live listings can accept payment.</p></div></div><div class="product-grid">${products.slice(0,4).map(productCard).join('')}</div></section><section class="seller-banner"><div><p class="eyebrow">For makers & independent brands</p><h2>Your shop. Your story. Our marketplace engine.</h2><p>Apply once, build your maker profile and prepare listings without a monthly listing bill during the founding phase.</p></div><a class="btn light" href="/become-a-vendor">Become a founding seller</a></section>`;
+    const referenceProducts = products.filter(p => p.reference).slice(0,4);
+    main.innerHTML = `<section class="hero"><div><p class="eyebrow">The Izakhono-owned maker marketplace</p><h1>Make it.<br>List it.<br>Sell it.</h1><p class="lead">LegacyMart Makers gives artisans, designers, authors, crafters and independent brands their own storefront experience, discovery tools and a trusted route to buyers — built in Africa for the world.</p><div class="actions"><a class="btn primary" href="/shop">Explore the marketplace</a><a class="btn ghost" href="/shop?seller=bevan-shelton">See our reference shop</a></div><div class="trust-strip"><span>0 listing fee at launch</span><span>${FEE}% marketplace fee target</span><span>Independent seller brands</span><span>Digital + physical products</span></div></div><div class="hero-market"><div class="floating-card one">🧵 <b>Handmade</b></div><div class="floating-card two">🎨 <b>Creative</b></div><div class="floating-card three">🌍 <b>Global</b></div><div class="maker-orbit"><span>LM</span></div><p>One marketplace. Thousands of independent makers.</p></div></section><section class="section-tight"><div class="section-head"><div><p class="eyebrow">Reference shop</p><h2>BEVAN SHELTON™ is our first seller trial</h2><p class="muted">Owner-operated by Bevan Shelton and used to test the full seller journey before outside sellers are onboarded.</p></div><a class="text-link" href="/shop?seller=bevan-shelton">Open the shop →</a></div><div class="product-grid">${referenceProducts.map(productCard).join('')}</div></section><section class="section-tight"><div class="section-head"><div><p class="eyebrow">Shop by category</p><h2>Find something made with meaning</h2></div><a class="text-link" href="/shop?view=categories">See all categories →</a></div><div class="category-grid">${categoryTiles()}</div></section><section class="seller-banner"><div><p class="eyebrow">For makers & independent brands</p><h2>Use the BEVAN SHELTON™ shop as the reference model.</h2><p>Once the trial proves onboarding, catalogue, ordering, fulfilment, fees and multichannel sync, the same seller system can be opened to other brands.</p></div><a class="btn light" href="/become-a-vendor">Become a founding seller</a></section>`;
   }
 
   function renderShop(){
@@ -38,14 +39,28 @@
       main.innerHTML = `<section><p class="eyebrow">Browse the marketplace</p><h1>Categories</h1><p class="lead">From handmade fashion and jewellery to art, books, digital products and personalised gifts.</p><div class="category-grid large">${categoryTiles()}</div></section>`;
       return;
     }
+
+    const sellerSlug = query.get('seller');
+    if (sellerSlug === 'bevan-shelton') {
+      const sellerProducts = products.filter(p => p.sellerSlug === 'bevan-shelton');
+      main.innerHTML = `<section class="shop-head"><p class="eyebrow">Official owner-operated reference shop</p><h1>BEVAN SHELTON™</h1><p class="lead">Seller: BEVAN SHELTON™ · Operator: Bevan Shelton · South Africa. This is LegacyMart Makers’ controlled trial storefront and reference implementation for future sellers.</p><div class="trust-strip"><span>Reference shop</span><span>Trial mode</span><span>Owner operated</span><span>Checkout not yet activated</span></div></section><section class="section-tight"><div class="product-grid">${sellerProducts.map(productCard).join('')}</div></section><section class="seller-banner"><div><p class="eyebrow">What we are testing here</p><h2>One real seller journey before we scale.</h2><p>Catalogue publishing, brand storefronts, buyer discovery, order flow, fee calculation, fulfilment, returns, reviews and multichannel integration will be proven here first.</p></div><a class="btn light" href="/how-it-works?view=fees">View seller economics</a></section>`;
+      return;
+    }
+
     const sku = query.get('product');
     if (sku) {
       const p = products.find(item => item.sku === sku);
       if (!p) return;
-      const action = p.live ? '<a class="btn primary" href="/checkout">Buy now</a>' : '<a class="btn ghost" href="/become-a-vendor">Demo listing — become a seller</a>';
-      main.innerHTML = `<section class="product-detail"><div class="detail-visual">${p.icon}</div><div><p class="eyebrow">${esc(p.category)}</p><h1>${esc(p.title)}</h1><p class="seller">Sold by <b>${esc(p.seller)}</b></p><p class="lead">${esc(p.desc)}</p><p class="price">${money(p.price)}</p><div class="actions">${action}<button class="btn ghost" data-favourite="${esc(p.sku)}">♡ Save</button></div><div class="buyer-protection"><b>Marketplace protection layer</b><span>Order record</span><span>Seller accountability</span><span>Dispute trail</span></div></div></section>`;
+      const action = p.live
+        ? '<a class="btn primary" href="/checkout">Buy now</a>'
+        : p.reference
+          ? '<span class="btn ghost">Reference trial — checkout not yet activated</span>'
+          : '<a class="btn ghost" href="/become-a-vendor">Demo listing — become a seller</a>';
+      const refNote = p.reference ? '<p class="pill">BEVAN SHELTON™ owner-operated trial listing</p>' : '';
+      main.innerHTML = `<section class="product-detail"><div class="detail-visual">${p.icon}</div><div><p class="eyebrow">${esc(p.category)}</p><h1>${esc(p.title)}</h1><p class="seller">Sold by <b>${esc(p.seller)}</b></p>${refNote}<p class="lead">${esc(p.desc)}</p><p class="price">From ${money(p.price)}</p><div class="actions">${action}<button class="btn ghost" data-favourite="${esc(p.sku)}">♡ Save</button></div><div class="buyer-protection"><b>Marketplace protection layer</b><span>Order record</span><span>Seller accountability</span><span>Dispute trail</span></div></div></section>`;
       return;
     }
+
     const q = (query.get('q') || '').trim().toLowerCase();
     const category = query.get('category') || '';
     const filtered = products.filter(p => (!q || `${p.title} ${p.seller} ${p.desc} ${p.category}`.toLowerCase().includes(q)) && (!category || p.category === category));
@@ -53,7 +68,7 @@
   }
 
   function renderFees(){
-    main.innerHTML = `<section><p class="eyebrow">Simple seller economics</p><h1>Keep more of every sale.</h1><div class="fee-table"><div><b>Listing fee</b><span>R0.00 during the founding launch</span></div><div><b>Marketplace commission</b><span>${FEE}% target of item value</span></div><div><b>Payment processing</b><span>Passed through according to the active payment gateway</span></div><div><b>Seller payout</b><span>Automated split payouts activate only after gateway, KYC/KYB, refunds and settlement controls are verified</span></div></div><p class="lead">The final commercial settings stay configurable so Izakhono can adapt the fee model without rebuilding the marketplace.</p></section>`;
+    main.innerHTML = `<section><p class="eyebrow">Simple seller economics</p><h1>Keep more of every sale.</h1><div class="fee-table"><div><b>Listing fee</b><span>R0.00 during the founding launch</span></div><div><b>Marketplace commission</b><span>${FEE}% target of item value</span></div><div><b>Payment processing</b><span>Passed through according to the active payment gateway</span></div><div><b>Seller payout</b><span>Automated split payouts activate only after gateway, KYC/KYB, refunds and settlement controls are verified</span></div></div><p class="lead">The BEVAN SHELTON™ owner-operated shop is the first reference implementation for these economics before third-party sellers are enabled.</p></section>`;
   }
 
   if (location.pathname === '/') renderHome();
@@ -78,18 +93,7 @@
       set.has(sku) ? set.delete(sku) : set.add(sku);
       localStorage.setItem(favKey, JSON.stringify([...set]));
       syncFavs();
-      return;
     }
-    const share = event.target.closest('[data-share-marketplace]');
-    if (share && navigator.share) navigator.share({title:document.title,url:location.href}).catch(()=>{});
   });
   syncFavs();
-
-  if (!document.querySelector('.marketplace-share')) {
-    const button = document.createElement('button');
-    button.className = 'marketplace-share';
-    button.setAttribute('data-share-marketplace','1');
-    button.textContent = 'Share';
-    document.body.appendChild(button);
-  }
 })();
