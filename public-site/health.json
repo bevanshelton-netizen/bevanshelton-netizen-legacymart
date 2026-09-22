@@ -1,0 +1,8 @@
+{
+  "service": "LegacyMart professional external fallback",
+  "status": "ok",
+  "host_role": "external-public-bridge",
+  "data_source": "Supabase WebStart public catalogue",
+  "checkout": "not-yet-enabled",
+  "owned_target": "NODE01 via IZAKHONO EDGE/TLS"
+}
