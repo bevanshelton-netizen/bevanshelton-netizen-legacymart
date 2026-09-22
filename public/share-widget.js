@@ -43,7 +43,7 @@
     const sellerSlug = query.get('seller');
     if (sellerSlug === 'bevan-shelton') {
       const sellerProducts = products.filter(p => p.sellerSlug === 'bevan-shelton');
-      main.innerHTML = `<section class="shop-head"><p class="eyebrow">Official owner-operated reference shop</p><h1>BEVAN SHELTON™</h1><p class="lead">Seller: BEVAN SHELTON™ · Operator: Bevan Shelton · South Africa. This is LegacyMart Makers’ controlled trial storefront and reference implementation for future sellers.</p><div class="trust-strip"><span>Reference shop</span><span>Trial mode</span><span>Owner operated</span><span>Checkout not yet activated</span></div></section><section class="section-tight"><div class="product-grid">${sellerProducts.map(productCard).join('')}</div></section><section class="seller-banner"><div><p class="eyebrow">What we are testing here</p><h2>One real seller journey before we scale.</h2><p>Catalogue publishing, brand storefronts, buyer discovery, order flow, fee calculation, fulfilment, returns, reviews and multichannel integration will be proven here first.</p></div><a class="btn light" href="/how-it-works?view=fees">View seller economics</a></section>`;
+      main.innerHTML = `<section class="shop-head"><p class="eyebrow">Official owner-operated reference shop</p><h1>BEVAN SHELTON™</h1><p class="lead">Seller: BEVAN SHELTON™ · Operator: Bevan Shelton · South Africa. This is LegacyMart Makers’ controlled trial storefront and reference implementation for future sellers.</p><div class="trust-strip"><span>Reference shop</span><span>Trial mode</span><span>Owner operated</span><span>Reference checkout staged</span></div></section><section class="section-tight"><div class="product-grid">${sellerProducts.map(productCard).join('')}</div></section><section class="seller-banner"><div><p class="eyebrow">What we are testing here</p><h2>One real seller journey before we scale.</h2><p>Catalogue publishing, brand storefronts, buyer discovery, order flow, fee calculation, fulfilment, returns, reviews and multichannel integration will be proven here first.</p></div><a class="btn light" href="/how-it-works?view=fees">View seller economics</a></section>`;
       return;
     }
 
@@ -54,7 +54,7 @@
       const action = p.live
         ? '<a class="btn primary" href="/checkout">Buy now</a>'
         : p.reference
-          ? '<span class="btn ghost">Reference trial — checkout not yet activated</span>'
+          ? `<a class="btn primary" href="/checkout?sku=${encodeURIComponent(p.sku)}">Run trial checkout</a>`
           : '<a class="btn ghost" href="/become-a-vendor">Demo listing — become a seller</a>';
       const refNote = p.reference ? '<p class="pill">BEVAN SHELTON™ owner-operated trial listing</p>' : '';
       main.innerHTML = `<section class="product-detail"><div class="detail-visual">${p.icon}</div><div><p class="eyebrow">${esc(p.category)}</p><h1>${esc(p.title)}</h1><p class="seller">Sold by <b>${esc(p.seller)}</b></p>${refNote}<p class="lead">${esc(p.desc)}</p><p class="price">From ${money(p.price)}</p><div class="actions">${action}<button class="btn ghost" data-favourite="${esc(p.sku)}">♡ Save</button></div><div class="buyer-protection"><b>Marketplace protection layer</b><span>Order record</span><span>Seller accountability</span><span>Dispute trail</span></div></div></section>`;
