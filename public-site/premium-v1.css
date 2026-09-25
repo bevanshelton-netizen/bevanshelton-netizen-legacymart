@@ -9,3 +9,29 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 @media(pointer:coarse){button,[role="button"],input[type="submit"],input[type="button"],select,.btn,.button,.primary,.secondary,.pill,.primary-btn,.secondary-btn{min-height:48px}}
 @media(prefers-contrast:more){input,select,textarea{border-width:2px!important}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+
+/* BEVAN SHELTON / LegacyMart Makers — International Editorial Makeover v1 */
+:root{--bs-shell:1240px;--bs-radius:26px;--bs-shadow:0 30px 90px rgba(0,0,0,.22)}
+html{scroll-behavior:smooth}
+body{font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.top{min-height:80px;padding:14px max(22px,calc((100vw - var(--bs-shell))/2));backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.top nav{gap:22px}.top nav a{position:relative}.top nav a:after{content:"";position:absolute;left:0;right:100%;bottom:-7px;height:1px;background:var(--gold);transition:right .18s ease}.top nav a:hover:after{right:0}
+.hero{min-height:78vh;padding:86px max(24px,calc((100vw - var(--bs-shell))/2));gap:62px}
+.hero h1{font-size:clamp(4rem,8vw,7.6rem);line-height:.84;letter-spacing:-.055em;text-wrap:balance}
+.hero p{font-size:clamp(1.05rem,1.5vw,1.22rem);line-height:1.75}
+.heroArt img{height:600px;border-radius:42px;box-shadow:0 34px 100px rgba(0,0,0,.5)}
+.btn,.shareBig,.top button{min-height:48px;display:inline-flex;align-items:center;justify-content:center;transition:transform .18s ease,box-shadow .18s ease}
+.btn:hover,.shareBig:hover,.top button:hover{transform:translateY(-2px)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--champ);outline-offset:3px}
+.bar{padding-inline:max(24px,calc((100vw - var(--bs-shell))/2))}
+.section{padding:92px max(24px,calc((100vw - var(--bs-shell))/2))}
+.head h2{font-size:clamp(2.7rem,5vw,5rem);line-height:.95;letter-spacing:-.045em}
+.productGrid{gap:18px}.product{border-radius:var(--bs-radius);padding:30px;box-shadow:0 14px 46px rgba(0,0,0,.13)}
+.lookGrid{gap:18px}.look{border-radius:var(--bs-radius);box-shadow:0 14px 38px rgba(30,20,10,.08)}
+.pic{height:340px}
+.trial{max-width:var(--bs-shell);margin:0 auto 88px;border-radius:38px;padding:54px}
+footer{padding:40px max(24px,calc((100vw - var(--bs-shell))/2))}
+@media(max-width:900px){.hero{grid-template-columns:1fr;padding-top:54px}.heroArt img{height:480px}.productGrid{grid-template-columns:repeat(2,1fr)}.lookGrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.top{min-height:70px;padding-inline:14px}.hero{padding:42px 16px}.hero h1{font-size:clamp(3.5rem,17vw,5.6rem)}.heroArt img{height:390px;border-radius:28px}.bar,.productGrid,.lookGrid{grid-template-columns:1fr}.section{padding:64px 16px}.trial{margin:0 16px 64px;padding:30px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
