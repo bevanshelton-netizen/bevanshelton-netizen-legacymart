@@ -1,0 +1,49 @@
+{
+  "schema": "izakhono.production-excellence/v1",
+  "product": "LegacyMart",
+  "profile": "izakhono-premium-v1",
+  "budgets": {
+    "htmlBytes": 393216
+  },
+  "profileMarkers": [
+    {
+      "file": "server.js",
+      "contains": "izakhono-premium-v1"
+    },
+    {
+      "file": "public-site/index.html",
+      "contains": "izakhono-premium-v1"
+    }
+  ],
+  "premiumCssFiles": [
+    "public/premium-v1.css",
+    "public-site/premium-v1.css"
+  ],
+  "responsiveFiles": [
+    "public/styles.css",
+    "public-site/index.html"
+  ],
+  "htmlFiles": [
+    "public-site/index.html"
+  ],
+  "securityAssertions": [
+    {
+      "file": "server.js",
+      "needles": [
+        "X-Content-Type-Options",
+        "Referrer-Policy",
+        "Permissions-Policy",
+        "X-Frame-Options"
+      ]
+    }
+  ],
+  "sourceAssertions": [
+    {
+      "file": "server.js",
+      "needles": [
+        "REFERENCE_CHECKOUT_ENABLED",
+        "CHECKOUT_ENABLED"
+      ]
+    }
+  ]
+}
